@@ -33,11 +33,7 @@ const BotList: React.FC<BotListProps> = ({ user }) => {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all'); // 'all', 'today', 'week', 'month'
 
-  useEffect(() => {
-    fetchBots();
-  }, [filter, fetchBots]);
-
-  const fetchBots = async () => {
+  const fetchBots = useCallback(async () => {
     setLoading(true);
     try {
       let q;
@@ -83,7 +79,11 @@ const BotList: React.FC<BotListProps> = ({ user }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter]);
+
+  useEffect(() => {
+    fetchBots();
+  }, [fetchBots]);
 
   const formatDate = (timestamp: any) => {
     if (!timestamp) return 'N/A';
