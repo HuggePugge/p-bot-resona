@@ -1,46 +1,98 @@
-# Getting Started with Create React App
+# Kontrollavgift App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+En modern React-applikation för att skapa och hantera parkeringsböter (kontrollavgifter) med Firebase-integration och TM Print Assistant-stöd.
 
-## Available Scripts
+## Funktioner
 
-In the project directory, you can run:
+- 🔐 Firebase-autentisering
+- 📝 Formulär för kontrollavgifter
+- 💾 Sparar data till Firebase Firestore
+- 🖨️ Utskrift via TM Print Assistant
+- 📱 Responsiv design
+- 🎨 Modern UI/UX
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Klona projektet:
+```bash
+git clone <repository-url>
+cd kontrollavgift-app
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+2. Installera beroenden:
+```bash
+npm install
+```
 
-### `npm test`
+3. Konfigurera miljövariabler:
+```bash
+cp env.example .env
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. Uppdatera `.env` med dina riktiga värden:
+- Firebase-konfiguration
+- ImageKit-konfiguration (valfritt)
 
-### `npm run build`
+## Konfiguration
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Firebase
+1. Skapa ett Firebase-projekt på [Firebase Console](https://console.firebase.google.com/)
+2. Aktivera Authentication (Email/Password)
+3. Aktivera Firestore Database
+4. Kopiera konfigurationsvärdena till `.env`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### ImageKit (valfritt)
+1. Skapa ett ImageKit-konto på [ImageKit.io](https://imagekit.io/)
+2. Kopiera API-nycklarna till `.env`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Användning
 
-### `npm run eject`
+### Utvecklingsläge
+```bash
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Produktionsbygg
+```bash
+npm run build
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Testning
+```bash
+npm test
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Struktur
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+src/
+├── components/
+│   ├── Login.tsx              # Inloggningskomponent
+│   ├── Login.css
+│   ├── KontrollavgiftForm.tsx # Huvudformulär
+│   └── KontrollavgiftForm.css
+├── firebase.ts                # Firebase-konfiguration
+├── imagekit.ts                # ImageKit-konfiguration
+├── App.tsx                    # Huvudapplikation
+└── App.css
+```
 
-## Learn More
+## Miljövariabler
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Se `env.example` för alla nödvändiga miljövariabler.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Deployment
+
+Applikationen kan deployas till:
+- Firebase Hosting
+- Vercel
+- Netlify
+- GitHub Pages
+
+## Teknisk stack
+
+- React 18
+- TypeScript
+- Firebase (Auth, Firestore)
+- ImageKit (valfritt)
+- CSS3 med modern styling
