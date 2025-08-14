@@ -193,7 +193,7 @@ const BotList: React.FC<BotListProps> = ({ user }) => {
     xml += `<text>Utfärdat av: ${esc(bot.utfardat)} ${nl}</text>`;
     xml += `<text> ${nl}</text>`;
 
-    xml += `<text>Reg.nr: ${esc(bot.regnr)} ${nl}</text>`;
+    xml += `<text>Reg.nr: ${esc(bot.regnr.toUpperCase())} ${nl}</text>`;
     xml += `<text>Fabrikat: ${esc(bot.fabrikat)} ${nl}</text>`;
     xml += `<text> ${nl}</text>`;
     xml += `<text>Från:  ${esc(bot.from)} ${nl}</text>`;

@@ -160,7 +160,7 @@ const KontrollavgiftForm: React.FC<KontrollavgiftFormProps> = ({ user, onLogout 
     xml += `<text>Utfärdat av: ${esc(v.utfardat)} ${nl}</text>`;
     xml += `<text> ${nl}</text>`;
 
-    xml += `<text>Reg.nr: ${esc(v.regnr)} ${nl}</text>`;
+    xml += `<text>Reg.nr: ${esc(v.regnr.toUpperCase())} ${nl}</text>`;
     xml += `<text>Fabrikat: ${esc(v.fabrikat)} ${nl}</text>`;
     xml += `<text> ${nl}</text>`;
     xml += `<text>Från:  ${esc(v.from)} ${nl}</text>`;
@@ -174,22 +174,23 @@ const KontrollavgiftForm: React.FC<KontrollavgiftFormProps> = ({ user, onLogout 
     xml += `<text> ${nl}</text>`;
     xml += `<text>Vägmarkering kontrollerad: ${esc(v.vagmark)} ${nl}</text>`;
     xml += `<text>Vägmärken kontrollerade: ${esc(v.vagmarken)} ${nl}</text>`;
-    xml += `<text> ${nl}</text>`;
     xml += `<text>Foto taget: ${esc(v.foto)} ${nl}</text>`;
+    xml += `<text> ${nl}</text>`;
+    xml += `<text>-------------------------------- ${nl}</text>`;
+    xml += `<text> ${nl}</text>`;
     xml += `<text>Autogiro: 5815-6332 ${nl}</text>`;
     xml += `<text> ${nl}</text>`;
-
     xml += `<text>-------------------------------- ${nl}</text>`;
     xml += `<text> ${nl}</text>`;
     xml += `<text>Angivna bestämmelser har överträtts.${nl}</text>`;
     xml += `<text> ${nl}</text>`;
-    xml += `<text>Derför uttages en kontrollavgift med belopp enligt ovan${nl}</text>`;
+    xml += `<text>Derför uttages en kontrollavgift med belopp     enligt ovan${nl}</text>`;
     xml += `<text> ${nl}</text>`;
     xml += `<text>Vid betalning via autogiro ska OCR enges.${nl}</text>`;
     xml += `<text> ${nl}</text>`;
     xml += `<text>Aviften emotses inom 8 dagar${nl}</text>`;
     xml += `<text> ${nl}</text>`;
-    xml += `<text>Eventuella invändningar ska göras till forvaltning@resona.se${nl}</text>`;
+    xml += `<text>Eventuella invändningar ska göras till          forvaltning@resona.se${nl}</text>`;
 
     xml += '<cut type="partial"/>' + nl;
     xml += '</epos-print>';
