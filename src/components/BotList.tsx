@@ -224,7 +224,9 @@ const BotList: React.FC<BotListProps> = ({ user }) => {
     xml += `<text>Aviften emotses inom 8 dagar${nl}</text>`;
     xml += `<text> ${nl}</text>`;
     xml += `<text>Eventuella invändningar ska göras till          forvaltning@resona.se${nl}</text>`;
-
+    xml += `<text> ${nl}</text>`;
+    xml += `<text>Scanna för att betala:${nl}</text>`;
+    xml += `<qr code="{\"uqr\":1,\"tp\":1,\"nme\":\"Säby Kulle Backe ekonomisk förening \",\"iref\":\"${esc(bot.ocr)}\",\"due\":${esc(bot.belopp)},\"pt\":\"BG\",\"acc\":\"5815-6332\"}"/>${nl}</text>`;
     xml += '<cut type="full"/>' + nl;
     xml += '</epos-print>';
     return xml;
