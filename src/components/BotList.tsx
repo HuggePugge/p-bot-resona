@@ -207,16 +207,17 @@ const BotList: React.FC<BotListProps> = ({ user }) => {
     xml += `<text> ${nl}</text>`;
     xml += `<text>Vägmarkering kontrollerad: ${esc(bot.vagmark)} ${nl}</text>`;
     xml += `<text>Vägmärken kontrollerade: ${esc(bot.vagmarken)} ${nl}</text>`;
-    xml += `<text> ${nl}</text>`;
     xml += `<text>Foto taget: ${esc(bot.foto)} ${nl}</text>`;
+    xml += `<text> ${nl}</text>`;
+    xml += `<text>-------------------------------- ${nl}</text>`;
+    xml += `<text> ${nl}</text>`;
     xml += `<text>Autogiro: 5815-6332 ${nl}</text>`;
     xml += `<text> ${nl}</text>`;
-
     xml += `<text>-------------------------------- ${nl}</text>`;
     xml += `<text> ${nl}</text>`;
     xml += `<text>Angivna bestämmelser har överträtts.${nl}</text>`;
     xml += `<text> ${nl}</text>`;
-    xml += `<text>Derför uttages en kontrollavgift med belopp enligt ovan${nl}</text>`;
+    xml += `<text>Derför uttages en kontrollavgift med belopp     enligt ovan${nl}</text>`;
     xml += `<text> ${nl}</text>`;
     xml += `<text>Vid betalning via autogiro ska OCR enges.${nl}</text>`;
     xml += `<text> ${nl}</text>`;
@@ -224,7 +225,7 @@ const BotList: React.FC<BotListProps> = ({ user }) => {
     xml += `<text> ${nl}</text>`;
     xml += `<text>Eventuella invändningar ska göras till          forvaltning@resona.se${nl}</text>`;
 
-    xml += '<cut type="partial"/>' + nl;
+    xml += '<cut type="full"/>' + nl;
     xml += '</epos-print>';
     return xml;
   };

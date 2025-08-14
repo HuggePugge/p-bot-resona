@@ -191,7 +191,7 @@ const KontrollavgiftForm: React.FC<KontrollavgiftFormProps> = ({ user, onLogout 
     xml += `<text>Aviften emotses inom 8 dagar${nl}</text>`;
     xml += `<text> ${nl}</text>`;
     xml += `<text>Eventuella invändningar ska göras till          forvaltning@resona.se${nl}</text>`;
-    xml += '<cut type="partial"/>' + nl;
+    xml += '<cut type="full"/>' + nl;
     xml += '</epos-print>';
     return xml;
   };
