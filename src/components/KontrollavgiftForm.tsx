@@ -193,7 +193,8 @@ const KontrollavgiftForm: React.FC<KontrollavgiftFormProps> = ({ user, onLogout 
     xml += `<text>Eventuella invändningar ska göras till          forvaltning@resona.se${nl}</text>`;
     xml += `<text> ${nl}</text>`;
     xml += `<text>Scanna för att betala:${nl}</text>`;
-    xml += `<qr>{"uqr":1,"tp":1,"nme":"Säby Kulle Backe ekonomisk förening ","iref":"${esc(v.ocr)}","due":${esc(v.belopp)},"pt":"BG","acc":"5815-6332"}</qr>${nl}`;
+    xml += `<qr>${esc(v.ocr)}_${esc(v.belopp)}_5815-6332</qr>${nl}`;
+    xml += `<text>QR: ${esc(v.ocr)}_${esc(v.belopp)}_5815-6332</text>${nl}`;
     xml += '<cut type="full"/>' + nl;
     xml += '</epos-print>';
     return xml;
@@ -206,7 +207,7 @@ const KontrollavgiftForm: React.FC<KontrollavgiftFormProps> = ({ user, onLogout 
             <div>
               <h1>🚗 Kontrollavgift</h1>
               <p>Skapa och skriv ut parkeringsböter via TM Print Assistant</p>
-              <small style={{ color: '#666', fontSize: '0.8rem' }}>v3.0</small>
+              <small style={{ color: '#666', fontSize: '0.8rem' }}>v3.1</small>
             </div>
             <div className="user-info">
               <span>Inloggad som: {user.email}</span>
