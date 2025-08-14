@@ -192,9 +192,6 @@ const KontrollavgiftForm: React.FC<KontrollavgiftFormProps> = ({ user, onLogout 
     xml += `<text> ${nl}</text>`;
     xml += `<text>Eventuella invändningar ska göras till          forvaltning@resona.se${nl}</text>`;
     xml += `<text> ${nl}</text>`;
-    xml += `<text>Scanna för att betala:${nl}</text>`;
-    xml += `<qr>${esc(v.ocr)}_${esc(v.belopp)}_5815-6332</qr>${nl}`;
-    xml += `<text>QR: ${esc(v.ocr)}_${esc(v.belopp)}_5815-6332</text>${nl}`;
     xml += '<cut type="full"/>' + nl;
     xml += '</epos-print>';
     return xml;

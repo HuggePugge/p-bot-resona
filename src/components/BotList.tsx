@@ -225,9 +225,6 @@ const BotList: React.FC<BotListProps> = ({ user }) => {
     xml += `<text> ${nl}</text>`;
     xml += `<text>Eventuella invändningar ska göras till          forvaltning@resona.se${nl}</text>`;
     xml += `<text> ${nl}</text>`;
-    xml += `<text>Scanna för att betala:${nl}</text>`;
-    xml += `<qr>${esc(bot.ocr)}_${esc(bot.belopp)}_5815-6332</qr>${nl}`;
-    xml += `<text>QR: ${esc(bot.ocr)}_${esc(bot.belopp)}_5815-6332</text>${nl}`;
     xml += '<cut type="full"/>' + nl;
     xml += '</epos-print>';
     return xml;
