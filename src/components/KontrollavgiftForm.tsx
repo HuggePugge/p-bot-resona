@@ -191,7 +191,6 @@ const KontrollavgiftForm: React.FC<KontrollavgiftFormProps> = ({ user, onLogout 
     xml += `<text>Aviften emotses inom 8 dagar${nl}</text>`;
     xml += `<text> ${nl}</text>`;
     xml += `<text>Eventuella invändningar ska göras till          forvaltning@resona.se${nl}</text>`;
-
     xml += '<cut type="partial"/>' + nl;
     xml += '</epos-print>';
     return xml;
@@ -204,6 +203,7 @@ const KontrollavgiftForm: React.FC<KontrollavgiftFormProps> = ({ user, onLogout 
             <div>
               <h1>🚗 Kontrollavgift</h1>
               <p>Skapa och skriv ut parkeringsböter via TM Print Assistant</p>
+              <small style={{ color: '#666', fontSize: '0.8rem' }}>v1.0</small>
             </div>
             <div className="user-info">
               <span>Inloggad som: {user.email}</span>

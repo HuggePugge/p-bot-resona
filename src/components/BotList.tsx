@@ -222,7 +222,7 @@ const BotList: React.FC<BotListProps> = ({ user }) => {
     xml += `<text> ${nl}</text>`;
     xml += `<text>Aviften emotses inom 8 dagar${nl}</text>`;
     xml += `<text> ${nl}</text>`;
-    xml += `<text>Eventuella invändningar ska göras till forvaltning@resona.se${nl}</text>`;
+    xml += `<text>Eventuella invändningar ska göras till          forvaltning@resona.se${nl}</text>`;
 
     xml += '<cut type="partial"/>' + nl;
     xml += '</epos-print>';
@@ -241,6 +241,7 @@ const BotList: React.FC<BotListProps> = ({ user }) => {
     <div className="bot-list-container">
       <div className="bot-list-header">
         <h2>📋 Lista över kontrollavgifter</h2>
+        <small style={{ color: '#666', fontSize: '0.8rem' }}>v1.0</small>
         <div className="filter-controls">
           <select value={filter} onChange={(e) => setFilter(e.target.value)}>
             <option value="all">Alla</option>
