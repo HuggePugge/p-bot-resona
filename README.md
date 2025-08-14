@@ -41,9 +41,7 @@ cp env.example .env
 3. Aktivera Firestore Database
 4. Kopiera konfigurationsvärdena till `.env`
 
-### ImageKit (valfritt)
-1. Skapa ett ImageKit-konto på [ImageKit.io](https://imagekit.io/)
-2. Kopiera API-nycklarna till `.env`
+
 
 ## Användning
 
@@ -72,7 +70,6 @@ src/
 │   ├── KontrollavgiftForm.tsx # Huvudformulär
 │   └── KontrollavgiftForm.css
 ├── firebase.ts                # Firebase-konfiguration
-├── imagekit.ts                # ImageKit-konfiguration
 ├── App.tsx                    # Huvudapplikation
 └── App.css
 ```
@@ -94,5 +91,4 @@ Applikationen kan deployas till:
 - React 18
 - TypeScript
 - Firebase (Auth, Firestore)
-- ImageKit (valfritt)
 - CSS3 med modern styling

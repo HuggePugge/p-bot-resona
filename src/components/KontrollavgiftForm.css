@@ -169,10 +169,12 @@
   box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
 }
 
-.save-button:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
+  .save-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+
 
 @media (max-width: 768px) {
   .container {

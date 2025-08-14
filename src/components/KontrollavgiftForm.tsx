@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, orderBy, limit, getDocs } from 'firebase/firestore';
 import './KontrollavgiftForm.css';
 
 interface KontrollavgiftFormProps {
   user: any;
-  onLogout: () => void;
+  onLogout?: () => void;
 }
 
 interface FormData {
@@ -27,7 +27,7 @@ interface FormData {
 const KontrollavgiftForm: React.FC<KontrollavgiftFormProps> = ({ user, onLogout }) => {
   const [formData, setFormData] = useState<FormData>({
     bolag: 'Säby Kulle Backe ekonomisk förening',
-    ocr: '',
+    ocr: '10000',
     utfardat: '',
     regnr: '',
     fabrikat: '',
@@ -49,41 +49,90 @@ const KontrollavgiftForm: React.FC<KontrollavgiftFormProps> = ({ user, onLogout 
     const timeString = `${today.getHours().toString().padStart(2, '0')}:${today.getMinutes().toString().padStart(2, '0')}`;
     const dateString = today.toISOString().slice(0, 10);
     
-    setFormData(prev => ({
-      ...prev,
-      from: `${dateString} ${timeString}`,
-      to: `${dateString} ${timeString}`
-    }));
+    // Hämta senaste OCR-numret från databasen
+    const fetchLatestOcr = async () => {
+      try {
+        const q = query(collection(db, 'kontrollavgifter'), orderBy('createdAt', 'desc'), limit(1));
+        const querySnapshot = await getDocs(q);
+        
+        if (!querySnapshot.empty) {
+          const latestBot = querySnapshot.docs[0].data();
+          const latestOcr = parseInt(latestBot.ocr || '10000');
+          setFormData(prev => ({
+            ...prev,
+            ocr: (latestOcr + 1).toString(),
+            from: `${dateString} ${timeString}`,
+            to: `${dateString} ${timeString}`
+          }));
+        } else {
+          // Om inga böter finns, börja med 10000
+          setFormData(prev => ({
+            ...prev,
+            ocr: '10000',
+            from: `${dateString} ${timeString}`,
+            to: `${dateString} ${timeString}`
+          }));
+        }
+      } catch (error) {
+        console.error('Error fetching latest OCR:', error);
+        // Fallback till 10000 om det blir fel
+        setFormData(prev => ({
+          ...prev,
+          ocr: '10000',
+          from: `${dateString} ${timeString}`,
+          to: `${dateString} ${timeString}`
+        }));
+      }
+    };
+    
+    fetchLatestOcr();
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
+    // Förhindra ändring av OCR-fältet
+    if (id === 'ocr') return;
+    
     setFormData(prev => ({
       ...prev,
       [id]: value
     }));
   };
 
-  const saveToFirebase = async () => {
+
+
+
+
+  const printViaTM = async () => {
+    // Spara först till databasen
     setLoading(true);
     try {
       await addDoc(collection(db, 'kontrollavgifter'), {
         ...formData,
         userId: user.uid,
         userEmail: user.email,
-        createdAt: serverTimestamp()
+        createdAt: serverTimestamp(),
+        status: 'skriven ut'
       });
-      setMessage('Kontrollavgift sparad!');
+      
+      // Öka OCR-numret automatiskt
+      const currentOcr = parseInt(formData.ocr);
+      setFormData(prev => ({
+        ...prev,
+        ocr: (currentOcr + 1).toString()
+      }));
+      
+      setMessage('Kontrollavgift sparad och skickad till skrivare!');
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
       console.error('Error saving to Firebase:', error);
       setMessage('Fel vid sparande');
-    } finally {
       setLoading(false);
+      return;
     }
-  };
+    setLoading(false);
 
-  const printViaTM = () => {
+    // Skicka till TM Print Assistant
     const appscheme = 'tmprintassistant://';
     const host = 'tmprintassistant.epson.com/';
     const action = 'print?';
@@ -149,20 +198,17 @@ const KontrollavgiftForm: React.FC<KontrollavgiftFormProps> = ({ user, onLogout 
 
   return (
     <div className="container">
-      <div className="header">
-        <div className="header-content">
-          <div>
-            <h1>🚗 Kontrollavgift</h1>
-            <p>Skapa och skriv ut parkeringsböter via TM Print Assistant</p>
-          </div>
-          <div className="user-info">
-            <span>Inloggad som: {user.email}</span>
-            <button onClick={onLogout} className="logout-button">
-              Logga ut
-            </button>
+              <div className="header">
+          <div className="header-content">
+            <div>
+              <h1>🚗 Kontrollavgift</h1>
+              <p>Skapa och skriv ut parkeringsböter via TM Print Assistant</p>
+            </div>
+            <div className="user-info">
+              <span>Inloggad som: {user.email}</span>
+            </div>
           </div>
         </div>
-      </div>
 
       <div className="form-container">
         {message && <div className="message">{message}</div>}
@@ -185,8 +231,9 @@ const KontrollavgiftForm: React.FC<KontrollavgiftFormProps> = ({ user, onLogout 
               <input
                 id="ocr"
                 value={formData.ocr}
-                onChange={handleInputChange}
-                placeholder="6570004983538"
+                readOnly
+                style={{ backgroundColor: '#f0f0f0', cursor: 'not-allowed' }}
+                placeholder="Automatiskt genererat"
               />
             </div>
             <div className="form-group">
@@ -338,18 +385,16 @@ const KontrollavgiftForm: React.FC<KontrollavgiftFormProps> = ({ user, onLogout 
           </div>
         </div>
 
+
+
         {/* Knappar */}
         <div className="button-group">
           <button 
-            className="save-button" 
-            onClick={saveToFirebase} 
+            className="print-button" 
+            onClick={printViaTM}
             disabled={loading}
           >
-            {loading ? 'Sparar...' : '💾 Spara till databas'}
-          </button>
-          
-          <button className="print-button" onClick={printViaTM}>
-            🖨️ Skriv ut via TM Print Assistant
+            {loading ? 'Sparar och skriver ut...' : '🖨️ Skriv ut via TM Print Assistant'}
           </button>
         </div>
       </div>
