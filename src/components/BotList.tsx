@@ -244,7 +244,7 @@ const BotList: React.FC<BotListProps> = ({ user }) => {
     <div className="bot-list-container">
       <div className="bot-list-header">
         <h2>📋 Lista över kontrollavgifter</h2>
-        <small style={{ color: '#666', fontSize: '0.8rem' }}>v1.0</small>
+        <small style={{ color: '#666', fontSize: '0.8rem' }}>v3.0</small>
         <div className="filter-controls">
           <select value={filter} onChange={(e) => setFilter(e.target.value)}>
             <option value="all">Alla</option>
